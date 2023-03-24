@@ -60,7 +60,6 @@ def main():
 
     #cross validation inference
     cv_inference(training_set, testing_set, lgb_model, best_features, CFG.label)
-training_set, testing_set, lgb_model, features, label_name, kfold, num_fold, tbrain_metric_func):
 if __name__ == '__main__':
     main()
 
