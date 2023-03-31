@@ -41,7 +41,7 @@ def get_near_N_day_numerical_feature(data, concat_data, num_feature, far_day, ne
     return data
 
 #將多個資料以label data為基準合併
-def get_concat_data(cust_label_data, cdtx_data, dp_CR_data, dp_DB_data, remit_data, cdtx_cat_col, cdtx_num_col, dp_CR_cat_col, dp_CR_num_col, dp_DB_cat_col, dp_DB_num_col, remit_cat_col, remit_num_col, far_day, near_day, topk):
+def concat_function(cust_label_data, cdtx_data, dp_CR_data, dp_DB_data, remit_data, cdtx_cat_col, cdtx_num_col, dp_CR_cat_col, dp_CR_num_col, dp_DB_cat_col, dp_DB_num_col, remit_cat_col, remit_num_col, far_day, near_day, topk):
     label_data = cust_label_data.copy()
     cdtx = cdtx_data.copy()
     dp_CR = dp_CR_data.copy()
@@ -86,7 +86,7 @@ def get_concat_data(cust_label_data, cdtx_data, dp_CR_data, dp_DB_data, remit_da
 
 
 
-def concat_all_data(cust_label_data, data_cdtx, data_dp, data_remit, far_day, near_day, topk):
+def concat_data(cust_label_data, data_cdtx, data_dp, data_remit, far_day, near_day, topk):
     #將dp依debit_cridit分開
     data_dp_CR = data_dp[data_dp.debit_credit==0]
     data_dp_DB = data_dp[data_dp.debit_credit==1]
@@ -118,7 +118,7 @@ def concat_all_data(cust_label_data, data_cdtx, data_dp, data_remit, far_day, ne
     dp_DB_num_col = ['DB_tx_amt']
     remit_num_col = ['trade_amount_usd']
 
-    data = get_concat_data \
+    data = concat_function \
         (cust_label_data, data_cdtx, data_dp_CR, data_dp_DB, data_remit,  cdtx_cat_col, cdtx_num_col, dp_CR_cat_col, \
         dp_CR_num_col, dp_DB_cat_col, dp_DB_num_col, remit_cat_col, remit_num_col, far_day=far_day, near_day=near_day, topk=topk)
     data.alert_key = cust_label_data.alert_key
